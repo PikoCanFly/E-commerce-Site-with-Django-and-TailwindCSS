@@ -13,9 +13,8 @@ Order Management: Process and manage customer orders in the backend with ease.
 Admin Interface: Utilize Django’s admin panel for easy management of products, categories, and orders.
 
 
-## Watch the Tutorial
+## Watch the Tutorial:
 
-You can watch the step-by-step tutorial here:
 [![Watch the Tutorial](https://img.youtube.com/vi/GUaUVhEBgyk/0.jpg)](https://www.youtube.com/watch?v=GUaUVhEBgyk)
 
 
