@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{%block title%}My site{%endblock%}
+
+{%block content%}
+
+<div class="container mx-auto p-4 flex">
+    <aside class="w-1/4 p-4">
+        <h2 class="font-bold">Categories:</h2>
+        <ul>
+            {%for category in categories%}
+            <li>
+                <a href="{% url 'products:product_list_by_category' category.slug %}">{{category.name}}</a>
+            </li>
+            {%endfor%}
+            
+        </ul>
+    </aside>
+    <main class="w-3/4 p-4">
+        {%if category%}
+        <h2 class="font-bold mb-4">{{category.name}}</h2>
+        {%else%}
+        <h2 class="font-bold mb-4">All Products:</h2>
+
+        {%endif%}
+        <div class="grid grid-cols-3 gap-4">
+            {% for product in products %}
+            <a href="{% url 'products:product_detail' product.id product.slug %}">
+            <div>
+                {% if product.image %}
+                <img src="{{product.image.url}}" alt={{product.name}} class="h-64 w-44 object-cover">
+                {%else%}
+                <p>The image is not available</p>
+                {%endif%}
+
+                <h3 class="font-semibold">{{product.name}}</h3>
+                <p>{{product.description}}</p>
+                <p class="text-indigo-600">${{product.price}}</p>
+            </div>
+        </a>
+            {%endfor%}
+
+        </div>
+    </main>
+    
+</div>
+
+{%endblock%}

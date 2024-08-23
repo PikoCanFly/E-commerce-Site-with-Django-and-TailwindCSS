@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{%block title%}My Cart{%endblock%}
+
+
+{%block content%}
+<h2 class="text-2xl font-semibold mb-4">My Cart</h2>
+
+{%if cart %}
+<ul class="space-y-4">
+    {%for item in cart.items.all %}
+    <li class="flex items-center p-4">
+        {%if item.product.image%}
+        <img src="{{item.product.image.url}}" alt={{item.product.name}} class="w-24 mr-4">
+        {%endif%}
+        <div class="flex-grow">
+            <a href="{%url 'products:product_detail' item.product.id item.product.slug%}">
+        <h3 class="font-semibold text-lg">{{item.product.name}}</h3>
+            </a>
+        <p class="text-gray-700">{{item.product.description}}</p>
+        <p class="text-indigo-600">${{item.product.price}}</p>
+        <p class="text-gray-600">Quantity: {{item.quantity}}</p>
+
+<div class="flex-shrink">
+   <form action="{%url 'cart:remove_item' item.id %}"  method="post">
+    {%csrf_token%}
+    <button type="submit" class="bg-red-600 text-white px-4 py-1 text-xs rounded">X</button>
+   </form>
+</div>
+        </div>
+    </li>
+    {%endfor%}
+</ul>
+
+<p><strong>Total Price: ${{cart.get_total_price}}</strong></p>
+{%else%}
+<p>Your Cart is empty.</p>
+{% endif %}
+<form action="{% url 'orders:order_create'%}" method="post">
+    {%csrf_token%}
+    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded mt-0.5">Proceed to Checkout</button>
+</form>
+{%endblock%}
